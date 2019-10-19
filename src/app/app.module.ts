@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { CoreModule } from './core/core.module';
+import { AppRoutingModule } from './app-routing.module';
 // import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @NgModule({
@@ -14,9 +13,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
   imports: [
     BrowserModule,
-    // BrowserAnimationsModule,
-    AppRoutingModule,
-    MatToolbarModule
+    CoreModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
