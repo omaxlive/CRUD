@@ -6,32 +6,40 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface TableItem {
-  name: string;
   id: number;
+  title: string;
+  content: string;
+  lat: string;
+  long: string;
+  image_url: string;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: TableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {
+    id: 1,
+    title: 'Madrid',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    lat: '40.41678',
+    long: '-3.70379',
+    image_url: 'http://static.tvmaze.com/uploads/images/medium_portrait/60/151357.jpg'
+  },
+  {
+    id: 2,
+    title: 'Barcelona',
+    content: 'Barcelona Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    lat: '40.41675',
+    long: '-3.70376',
+    image_url: 'http://static.tvmaze.com/uploads/images/medium_portrait/11/27896.jpg'
+  },
+  {
+    id: 3,
+    title: 'Granada',
+    content: 'Granada Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    lat: '40.41671',
+    long: '-3.70371',
+    image_url: 'http://static.tvmaze.com/uploads/images/medium_portrait/4/11308.jpg'
+  }
 ];
 
 /**
@@ -94,7 +102,7 @@ export class TableDataSource extends DataSource<TableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        case 'title': return compare(a.title, b.title, isAsc);
         case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
