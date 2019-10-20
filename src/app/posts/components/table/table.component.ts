@@ -35,6 +35,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
+import { Post } from '../../interfaces/post';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -52,22 +53,14 @@ export class TableComponent implements OnInit {
 
   constructor(public postsService: PostsService, public router: Router) { }
 
-  openDetail(row: any) {
-    console.log(row);
-    this.router.navigateByUrl('/detail', { state: row });
-  }
-
-  filterList(filter: string) {
-    this.dataSource.filter = filter.trim().toLowerCase();
+  ngOnInit(): void {
+    this.getPostsList();
   }
 
   getPostsList() {
     this.postsService.getPosts()
       .subscribe((result) => {
-        if (result) {
-          this.dataSource.data = result;
-          this.dataSource.sort = this.sort;
-        }
+          this.refreshList(result);
       }, (error) => {
         console.error('ERROR: ', error);
       }, () => {
@@ -75,9 +68,18 @@ export class TableComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
+  refreshList(data: Post[]): void {
+    this.dataSource.data = data;
+    this.dataSource.sort = this.sort;
+  }
 
-    this.getPostsList();
+  filterList(filter: string) {
+    this.dataSource.filter = filter.trim().toLowerCase();
+  }
+
+  openDetail(row: any) {
+    console.log(row);
+    this.router.navigateByUrl('/detail', { state: row });
   }
 
 }
