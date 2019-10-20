@@ -23,7 +23,10 @@
       [pageSizeOptions]="[25, 50, 100, 250]">
   </mat-paginator>
 </div>-->
-
+<div class="container">
+<mat-form-field class="form-padding">
+  <input matInput (keyup)="filterList($event.target.value)" placeholder="filter">
+</mat-form-field>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width-table">
 
   <!--- Note that these columns can be defined in any order.
@@ -50,3 +53,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetail(row)"></tr>
 </table>
+</div>

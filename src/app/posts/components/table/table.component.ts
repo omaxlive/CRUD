@@ -32,6 +32,8 @@ export class TableComponent implements AfterViewInit, OnInit {
 */
 
 import {Component} from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
+
 
 export interface PeriodicElement {
   id: number;
@@ -81,9 +83,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class TableComponent {
   displayedColumns: string[] = ['id', 'title', 'content'];
-  dataSource = ELEMENT_DATA;
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   openDetail(row: any) {
     console.log(row);
+  }
+
+  filterList(filter: string) {
+    this.dataSource.filter = filter.trim().toLowerCase();
   }
 }
