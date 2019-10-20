@@ -34,6 +34,7 @@ export class TableComponent implements AfterViewInit, OnInit {
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { PostsService } from '../../services/posts.service';
+import { Router } from '@angular/router';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -49,10 +50,11 @@ export class TableComponent implements OnInit {
 
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(public postsService: PostsService) { }
+  constructor(public postsService: PostsService, public router: Router) { }
 
   openDetail(row: any) {
     console.log(row);
+    this.router.navigateByUrl('/detail', { state: row });
   }
 
   filterList(filter: string) {
