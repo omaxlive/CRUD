@@ -82,4 +82,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class TableComponent {
   displayedColumns: string[] = ['id', 'title', 'content'];
   dataSource = ELEMENT_DATA;
+
+  openDetail(row: any) {
+    console.log(row);
+  }
 }
