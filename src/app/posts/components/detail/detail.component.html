@@ -1,15 +1,32 @@
-<div class="example-container">
+
+<form [formGroup]="myForm" (ngSubmit)="submitForm()" novalidate class="form-container">
 	<mat-form-field>
-	  <input matInput placeholder="Input">
+	  <input matInput placeholder="Title" formControlName="title">
 	</mat-form-field>
  
 	<mat-form-field>
-	  <textarea matInput placeholder="Textarea"></textarea>
+	  <textarea matInput placeholder="Content" formControlName="content"></textarea>
 	</mat-form-field>
- 
+
 	<mat-form-field>
-	  <mat-select placeholder="Select">
-		 <mat-option value="option">Option</mat-option>
-	  </mat-select>
+		<input matInput placeholder="Latitude" formControlName="lat">
 	</mat-form-field>
- </div>
+
+	<mat-form-field>
+		<input matInput placeholder="Longitude" formControlName="long">
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput placeholder="Image url" formControlName="image_url">
+	</mat-form-field>
+
+	<div class="button-wrapper">
+		<button mat-flat-button color="primary" [disabled]="this.myForm.invalid">Save</button>
+	</div>
+</form>
+
+<div class="button-container">
+	<div class="button-wrapper">
+		<button mat-raised-button color="warn" *ngIf="!isCreating" (click)="deletePost()">Remove</button>
+	</div>
+</div>

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiHost: 'http://localhost:3000/posts'
+  apiHost: 'https://wf-challenge-abqs4otg74.herokuapp.com/api/v1/posts'
 };

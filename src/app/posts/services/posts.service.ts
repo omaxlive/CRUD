@@ -15,8 +15,16 @@ export class PostsService {
     return this.http.get<Post[]>(environment.apiHost);
   }
 
-  getPost(id: string): Observable<Post> {
-    return this.http.get<Post>(environment.apiHost);
+  deletePost(id: number): Observable<Post> {
+    return this.http.delete<Post>(`${environment.apiHost}/${id}`);
+  }
+
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${environment.apiHost}/`, post);
+  }
+
+  updatePost(post: Post): Observable<Post> {
+    return this.http.patch<Post>(`${environment.apiHost}/${post.id}`, post);
   }
 
 }

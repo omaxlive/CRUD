@@ -1,0 +1,15 @@
+$app-detail-button-wrapper-width: 100% !default;
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.button-wrapper button {
+  width: $app-detail-button-wrapper-width;
+}
+
+.button-container {
+  padding: 0rem 2rem 0rem 2rem;
+}
