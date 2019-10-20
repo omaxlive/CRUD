@@ -8,3 +8,10 @@
 .form-padding {
   width: 100%;
 }
+tr {
+  cursor: pointer;
+}
+.image_cell {
+  width: 3rem;
+  padding: 0.2rem;
+}

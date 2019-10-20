@@ -33,38 +33,7 @@ export class TableComponent implements AfterViewInit, OnInit {
 
 import {Component, OnInit} from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { Post } from '../../interfaces/post';
 import { PostsService } from '../../services/posts.service';
-
-
-const ELEMENT_DATA: Post[] = [
-  {
-    id: 1,
-    title: 'Madrid',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    lat: '40.41678',
-    long: '-3.70379',
-    image_url: 'http://static.tvmaze.com/uploads/images/medium_portrait/60/151357.jpg'
-  },
-  {
-    id: 2,
-    title: 'Barcelona',
-    content: 'Barcelona Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    lat: '40.41675',
-    long: '-3.70376',
-    image_url: 'http://static.tvmaze.com/uploads/images/medium_portrait/11/27896.jpg'
-  },
-  {
-    id: 3,
-    title: 'Granada',
-    content: 'Granada Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    lat: '40.41671',
-    long: '-3.70371',
-    image_url: 'http://static.tvmaze.com/uploads/images/medium_portrait/4/11308.jpg'
-  }
-];
-
-// export const COLUMNS: any = {ID: 'id', TITLE: 'title', CONTENT: 'content'};
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -75,7 +44,7 @@ const ELEMENT_DATA: Post[] = [
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'content'];
+  displayedColumns: string[] = ['id', 'title', 'content', 'image_url'];
   dataSource = new MatTableDataSource([]);
 
   constructor(public postsService: PostsService) { }
