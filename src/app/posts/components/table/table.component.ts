@@ -31,20 +31,13 @@ export class TableComponent implements AfterViewInit, OnInit {
 }
 */
 
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
+import { Post } from '../../interfaces/post';
+import { PostsService } from '../../services/posts.service';
 
 
-export interface PeriodicElement {
-  id: number;
-  title: string;
-  content: string;
-  lat: string;
-  long: string;
-  image_url: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: Post[] = [
   {
     id: 1,
     title: 'Madrid',
@@ -81,9 +74,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'content'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource([]);
+
+  constructor(public postsService: PostsService) { }
 
   openDetail(row: any) {
     console.log(row);
@@ -92,4 +87,22 @@ export class TableComponent {
   filterList(filter: string) {
     this.dataSource.filter = filter.trim().toLowerCase();
   }
+
+  getPostsList() {
+    this.postsService.getPosts()
+      .subscribe((result) => {
+        if (result) {
+          this.dataSource.data = result;
+        }
+      }, (error) => {
+        console.error('ERROR: ', error);
+      }, () => {
+        console.log('COMPLETED');
+      });
+  }
+
+  ngOnInit(): void {
+    this.getPostsList();
+  }
+
 }
