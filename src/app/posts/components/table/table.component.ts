@@ -31,8 +31,8 @@ export class TableComponent implements AfterViewInit, OnInit {
 }
 */
 
-import {Component, OnInit} from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { MatTableDataSource, MatSort } from '@angular/material';
 import { PostsService } from '../../services/posts.service';
 
 /**
@@ -46,6 +46,8 @@ import { PostsService } from '../../services/posts.service';
 export class TableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'content', 'image_url'];
   dataSource = new MatTableDataSource([]);
+
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(public postsService: PostsService) { }
 
@@ -62,6 +64,7 @@ export class TableComponent implements OnInit {
       .subscribe((result) => {
         if (result) {
           this.dataSource.data = result;
+          this.dataSource.sort = this.sort;
         }
       }, (error) => {
         console.error('ERROR: ', error);
@@ -71,6 +74,7 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getPostsList();
   }
 
