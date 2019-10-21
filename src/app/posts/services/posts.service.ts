@@ -24,7 +24,7 @@ export class PostsService {
   }
 
   updatePost(post: Post): Observable<Post> {
-    return this.http.patch<Post>(`${environment.apiHost}/${post.id}`, post);
+    return this.http.put<Post>(`${environment.apiHost}/${post.id}`, post);
   }
 
 }
