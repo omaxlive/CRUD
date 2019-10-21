@@ -1,0 +1,13 @@
+<agm-map [fitBounds]="true" [mapTypeId]='"roadmap"'>
+	<agm-marker
+		*ngFor="let marker of markers"
+		[latitude]="marker.lat"
+		[longitude]="marker.lng"
+		[opacity]="marker.alpha"
+		[markerDraggable]="marker.draggable"
+		(dragEnd)="dragFinished($event)"
+		(markerClick)="selectMarker($event)"
+		[agmFitBounds]="true"
+	 >
+	</agm-marker>
+</agm-map>

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Post } from '../../interfaces/post';
 import { PostsService } from '../../services/posts.service';
-import { Location } from '@angular/common';
 import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
@@ -24,8 +23,8 @@ export class DetailComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public fb: FormBuilder,
     public postsService: PostsService,
-    private location: Location,
     public snackBar: SnackBarService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -39,17 +38,17 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  initReactiveForm() {
+  initReactiveForm(): void {
     this.myForm = this.fb.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
-      lat: ['', [Validators.required]],
-      long: ['', [Validators.required]],
-      image_url: ['', [Validators.required]]
+      lat: ['', [Validators.required, Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,9})?$')]],
+      long: ['', [Validators.required, Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,9})?$')]],
+      image_url: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]]
     });
   }
 
-  fillFormWithData(post: Post) {
+  fillFormWithData(post: Post): void {
     this.currentPost = post;
     this.myForm.patchValue(post);
   }
@@ -58,29 +57,36 @@ export class DetailComponent implements OnInit {
     return this.myForm.controls[control].hasError(error);
   }
 
-  submitForm() {
+  submitForm(): void {
     if (this.isCreating) {
       this.postsService.createPost(this.myForm.value).subscribe((res) => {
-        this.location.back();
+        this.router.navigateByUrl('/');
         this.snackBar.showSnackBar('Created successfully', 'Dismiss');
+      }, (error) => {
+        this.snackBar.showSnackBar('Something went wrong', 'Dismiss');
       });
     } else {
-      this.postsService.updatePost({ id: this.currentPost.id, ...this.myForm.value}).subscribe((res) => {
-        this.location.back();
+      this.postsService.updatePost({ id: this.currentPost.id, ...this.myForm.value}).subscribe(() => {
+        this.router.navigateByUrl('/');
         this.snackBar.showSnackBar('Updated successfully', 'Dismiss');
+      }, (error) => {
+          this.snackBar.showSnackBar('Something went wrong', 'Dismiss');
       });
     }
   }
 
-  deletePost() {
+  deletePost(): void {
     this.postsService.deletePost(this.currentPost.id).subscribe(() => {
-      this.location.back();
+      this.router.navigateByUrl('/');
       this.snackBar.showSnackBar('Removed successfully', 'Dismiss');
+    }, (error) => {
+      this.snackBar.showSnackBar('Something went wrong', 'Dismiss');
     });
   }
 
-
-
+  updateLocation(event: Event): void {
+    this.myForm.patchValue(event);
+  }
 }
 
 

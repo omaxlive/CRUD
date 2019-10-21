@@ -1,4 +1,8 @@
 <div class="table-container">
+
+<mat-tab-group mat-stretch-tabs (selectedIndexChange)="tabClick($event)">
+  <mat-tab label="List">
+
 <mat-form-field class="form-padding">
   <input matInput (keyup)="filterList($event.target.value)" placeholder="filter">
 </mat-form-field>
@@ -31,4 +35,11 @@
 <div class="button-wrapper">
 	<button mat-flat-button color="primary" (click)="createPost()">Create</button>
 </div>
+
+</mat-tab>
+<mat-tab label="Map">
+   <app-map *ngIf="isMapActive" [posts]="dataSource.data" (postSelected)="openDetail($event)"></app-map>
+</mat-tab>
+</mat-tab-group>
+
 </div>

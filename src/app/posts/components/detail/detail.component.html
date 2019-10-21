@@ -9,6 +9,10 @@
 	</mat-form-field>
 
 	<mat-form-field>
+		<input matInput placeholder="Image url" formControlName="image_url">
+	</mat-form-field>
+
+	<mat-form-field>
 		<input matInput placeholder="Latitude" formControlName="lat">
 	</mat-form-field>
 
@@ -16,9 +20,7 @@
 		<input matInput placeholder="Longitude" formControlName="long">
 	</mat-form-field>
 
-	<mat-form-field>
-		<input matInput placeholder="Image url" formControlName="image_url">
-	</mat-form-field>
+	<app-map (markerDragged)=updateLocation($event) [posts]="[{lat: myForm.controls.lat.value, long: this.myForm.controls.long.value, draggable: true}]"></app-map>
 
 	<div class="button-wrapper">
 		<button mat-flat-button color="primary" [disabled]="this.myForm.invalid">Save</button>
