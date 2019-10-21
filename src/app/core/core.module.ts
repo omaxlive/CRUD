@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule, routingComponents } from '../app-routing.module';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from '../posts/components/map/map.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [NavComponent, routingComponents, MapComponent],
@@ -20,7 +21,7 @@ import { MapComponent } from '../posts/components/map/map.component';
     HttpClientModule,
     LayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC9-oPLu_l8WVwAGRfXUS8DePmly5LRnng'
+      apiKey: environment.AgmApiKey
     })
   ],
   exports: [ NavComponent, MapComponent ]
